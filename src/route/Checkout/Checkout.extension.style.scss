@@ -1,0 +1,7 @@
+.Checkout{
+  &::before{
+    @include after-mobile{
+      content:none;
+    }
+  }
+}

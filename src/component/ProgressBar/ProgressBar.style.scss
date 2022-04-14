@@ -1,0 +1,137 @@
+@use "sass:color";
+
+.ProgressBar {
+    min-height: var(--progress-bar-height);
+    background-color: $default-secondary-base-color;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    &-Steps{
+      padding:0 10%;
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    
+    &-Step{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap:1rem;
+      z-index: calc(10 - var(--progressbar-step));
+      .Step-Number{
+        font-size: var(--progress-bar-items-size);
+        padding:var(--progress-bar-items-size);
+        box-sizing: content-box;
+        display: grid;
+        place-content: center;
+        width:  var(--progress-bar-items-size);
+        height:  var(--progress-bar-items-size);
+        font-weight: bold;
+        border-radius: 50%;
+        background-color: adjust-color($color: $default-secondary-dark-color, $lightness: 30%);
+        color:adjust-color($color: $black, $lightness: 50%);
+        transform-style: preserve-3d;
+        box-shadow: 0 0 0 calc(var(--progress-bar-items-size) ) $default-secondary-base-color;
+        position: relative;
+        transition: background-color 1.1s;
+        .Step-Done{
+          object-fit: fill;
+          animation: progressbar-done-animation linear 500ms forwards;
+        }
+        &::before{
+          content: "";
+          width: 100vw;
+          height: .5em;
+          background-color: adjust-color($color: $default-secondary-dark-color, $lightness: 30%);
+          position: absolute;
+          right: 0;
+          top:50%;
+          transform: translateY(-50%) translateZ(-2px);
+          transform-origin: left;
+        }
+
+      }
+      .Step-Text{
+        margin:0;
+        font-weight: bold;
+        font-size: var(--progress-bar-items-size);
+        color: adjust-color($color: $black, $lightness: 50%);
+      }
+      
+      &.active,&.done{
+        .Step-Number{
+          background-color:$default-primary-base-color;
+          color:$white;
+          &::before{
+            background-color: $default-primary-base-color;
+          animation: progressbar-step-animation ease-out 1s forwards;
+
+          }
+        }
+        .Step-Text{
+          color:$black;
+        }
+          
+      }
+
+      //This is the line from the last item to the end.
+      &:last-child{
+        .Step-Number{
+          &::after{
+            content: "";
+            width: 100vw;
+            height: .5em;
+            background-color: $default-primary-base-color;
+            position: absolute;
+            top:50%;
+            transform-origin: left;
+            transform: scaleX(0) translateY(-50%) translateZ(-2px);
+          }
+        }
+        &.done{
+
+          .Step-Number{
+            &::after{
+              animation: progressbar-step-animation ease-out 1s forwards;
+            }
+          }
+        }
+      }
+      //This is a line that is drawn from start to the end. It's fill the space there is empty when the steps aren't active.
+      &:first-child{
+        position: absolute;
+        left:calc(var(--progress-bar-items-size) * -10);
+        
+        .Step-Number::before{
+          width: calc(100vw + var(--progress-bar-items-size) * 10);
+          left:0;
+        }
+      }
+    }
+  }
+
+  @keyframes progressbar-step-animation{
+    0%{
+      transform: scaleX(0) translateY(-50%) translateZ(-2px);
+    }
+    100%{
+      transform: scaleX(1) translateY(-50%) translateZ(-2px);
+    }
+  }
+  @keyframes progressbar-done-animation{
+    0%{
+      transform: scale(1) rotate(360deg);
+    }
+   
+    50%{
+      transform: scale(2) rotate(0deg);
+    }
+   
+    100%{
+      transform: scale(1.5) rotate(0);
+    }
+  }
