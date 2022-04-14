@@ -13,7 +13,6 @@ export class ProgressBar extends PureComponent {
   static defaultProps = {
     steps: [],
     currentStep: 0,
-    height: "15vh",
     itemsSize: 1.5,
   };
 
