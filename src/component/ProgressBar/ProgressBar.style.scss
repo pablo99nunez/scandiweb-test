@@ -1,12 +1,13 @@
 @use "sass:color";
 
 .ProgressBar {
-    min-height: var(--progress-bar-height);
     background-color: $default-secondary-base-color;
     display: flex;
     overflow: hidden;
     align-items: center;
     justify-content: center;
+    min-height: max-content;
+    padding: calc(var(--progress-bar-items-size) * 2) 0;
     &-Steps{
       padding:0 10%;
       display: flex;
@@ -26,6 +27,7 @@
         font-size: var(--progress-bar-items-size);
         padding:var(--progress-bar-items-size);
         box-sizing: content-box;
+        line-height: 1;
         display: grid;
         place-content: center;
         width:  var(--progress-bar-items-size);
@@ -45,7 +47,7 @@
         &::before{
           content: "";
           width: 100vw;
-          height: .5em;
+          height: calc(var(--progress-bar-items-size) * .5);
           background-color: adjust-color($color: $default-secondary-dark-color, $lightness: 30%);
           position: absolute;
           right: 0;

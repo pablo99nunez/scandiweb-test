@@ -8,7 +8,6 @@ export class ProgressBar extends PureComponent {
   static propTypes = {
     steps: PropTypes.arrayOf(PropTypes.string).isRequired,
     currentStep: PropTypes.number,
-    height: PropTypes.string,
     itemsSize: PropTypes.number,
   };
   static defaultProps = {
@@ -26,11 +25,6 @@ export class ProgressBar extends PureComponent {
         "You should provide an array of steps to the ProgressBar component"
       );
     }
-    CSS.setVariable(
-      this.progressBarRef,
-      "progress-bar-height",
-      this.props.height
-    );
     CSS.setVariable(
       this.progressBarRef,
       "progress-bar-items-size",

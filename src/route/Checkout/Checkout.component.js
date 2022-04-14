@@ -10,8 +10,7 @@ export default class Checkout extends SourceCheckout {
       <ProgressBar
         steps={["Shipping", "Review & Payments"]}
         currentStep={this.stepMap[this.props.checkoutStep].order}
-        height="15vh"
-        itemsSize={1.5}
+        itemsSize={1.2}
       ></ProgressBar>
     );
   }
